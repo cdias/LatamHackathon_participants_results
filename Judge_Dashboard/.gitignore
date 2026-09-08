@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+*.pyc
+votes_data.json
+analysis_data.json
+groups.json
+dashboard.html
+resultado_final.html
+scoreboard.csv
+reports/*.md
+streamlit.log

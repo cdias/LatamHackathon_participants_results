@@ -1,20 +1,20 @@
-# LatamHackathon — Resultados dos Participantes
+# LatamHackathon — Participant Results
 
-Arquivo com o código entregue por cada time no evento **TiDB × AWS Hackathon —
-"Ask the Airport"**, São Paulo, 02/09/2026.
+Archive of the code submitted by each team at the **TiDB × AWS Hackathon —
+"Ask the Airport"**, São Paulo, 2026-09-02.
 
-O desafio, os critérios de pontuação e as instruções técnicas completas estão
-descritos no repositório oficial do hackathon:
+The challenge brief, scoring rubric, and full technical instructions live in
+the official hackathon repository:
 👉 [ayenller/LatamHackathon](https://github.com/ayenller/LatamHackathon)
 
-## 🏆 Vencedor: time1
+## 🏆 Winner: time1
 
-## Times — SP_AWS_Builders_2026
+## Teams — SP_AWS_Builders_2026
 
-| Time | Repositório original |
+| Team | Original repository |
 |---|---|
 | **time1** 🏆 | [antoniosb/aws-tidb-hackathon](https://github.com/antoniosb/aws-tidb-hackathon) |
-| time2 | ⚠️ pendente — ver [`SP_AWS_Builders_2026/time2/PENDENTE.md`](SP_AWS_Builders_2026/time2/PENDENTE.md) |
+| time2 | ⚠️ pending — see [`SP_AWS_Builders_2026/time2/PENDING.md`](SP_AWS_Builders_2026/time2/PENDING.md) |
 | time3 | [mfeitoza/tidb-hackathon](https://github.com/mfeitoza/tidb-hackathon) |
 | time4 | [feliperafaellesilva-bot/TiDB](https://github.com/feliperafaellesilva-bot/TiDB) |
 | time5 | [icygler/horizon-90-grupo-5](https://github.com/icygler/horizon-90-grupo-5) |
@@ -24,7 +24,7 @@ descritos no repositório oficial do hackathon:
 | time9 | [flap/airrevenue](https://github.com/flap/airrevenue) |
 | time10 | [LightGu/ATA_AskTheAirport](https://github.com/LightGu/ATA_AskTheAirport) |
 
-Cada pasta em `SP_AWS_Builders_2026/` contém uma cópia do código do time no
-momento do arquivamento (sem o histórico `.git` original — só o snapshot dos
-arquivos). O histórico de commits completo, se precisar, continua disponível
-nos repositórios originais listados acima (enquanto existirem).
+Each folder under `SP_AWS_Builders_2026/` holds a snapshot of that team's code
+at archiving time (the original `.git` history was stripped — just the
+files). Full commit history, if you need it, is still available in the
+original repositories linked above (as long as they still exist).

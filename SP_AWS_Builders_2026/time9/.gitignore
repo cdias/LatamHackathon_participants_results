@@ -1,0 +1,20 @@
+# Segredos — repo público com Secret Scanning/Push Protection
+.env
+*.pem
+*.key
+.credentials
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node
+node_modules/
+dist/
+*.log
+
+# OS
+.DS_Store
+.playwright-mcp/

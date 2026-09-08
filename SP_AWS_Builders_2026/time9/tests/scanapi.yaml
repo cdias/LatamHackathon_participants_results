@@ -1,0 +1,89 @@
+endpoints:
+  - name: airrevenue
+    path: ${BASE_URL}
+    requests:
+      # 1) Health público
+      - name: health
+        method: get
+        path: /api/health
+        tests:
+          - name: status_200
+            assert: ${{ response.status_code == 200 }}
+          - name: ok
+            assert: ${{ response.json()["status"] == "ok" }}
+
+      # 2) Zero-trust: rota protegida sem token -> 401
+      - name: reco_sem_token
+        method: get
+        path: /api/recommendations
+        tests:
+          - name: nega_sem_token
+            assert: ${{ response.status_code == 401 }}
+
+      # 3) Login inválido -> 401
+      - name: login_invalido
+        method: post
+        path: /api/auth/login
+        headers:
+          Content-Type: application/json
+        body:
+          username: airline82
+          password: senha-errada
+        tests:
+          - name: credencial_invalida
+            assert: ${{ response.status_code == 401 }}
+
+      # 4) Login válido -> token
+      - name: login
+        method: post
+        path: /api/auth/login
+        headers:
+          Content-Type: application/json
+        body:
+          username: ${USERNAME}
+          password: ${PASSWORD}
+        vars:
+          token: ${{ response.json()["access_token"] }}
+          airline_id: ${{ response.json()["airline_id"] }}
+        tests:
+          - name: status_200
+            assert: ${{ response.status_code == 200 }}
+          - name: tem_token
+            assert: ${{ len(response.json()["access_token"]) > 20 }}
+
+      # 5) Recomendações com token -> 200 e lista
+      - name: recomendacoes
+        method: get
+        path: /api/recommendations
+        headers:
+          Authorization: Bearer ${token}
+        tests:
+          - name: status_200
+            assert: ${{ response.status_code == 200 }}
+          - name: retorna_voos
+            assert: ${{ "flights" in response.json() }}
+
+      # 6) Busca vetorial -> 200
+      - name: busca_vetorial
+        method: post
+        path: /api/search
+        headers:
+          Authorization: Bearer ${token}
+          Content-Type: application/json
+        body:
+          q: voos noturnos
+        tests:
+          - name: status_200
+            assert: ${{ response.status_code == 200 }}
+          - name: tem_resultados
+            assert: ${{ "results" in response.json() }}
+
+      # 7) Token forjado (assinatura inválida) -> 401 (zero-trust)
+      - name: token_forjado
+        method: get
+        path: /api/recommendations
+        headers:
+          Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhaXJsaW5lX2lkIjo5OTk5fQ.forjado
+        tests:
+          - name: rejeita_forjado
+            assert: ${{ response.status_code == 401 }}

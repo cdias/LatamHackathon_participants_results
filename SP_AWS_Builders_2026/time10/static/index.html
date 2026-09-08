@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Ask the Airport</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; background: #0b0f14; color: #e6edf3; }
+  h1 { font-size: 1.4rem; }
+  form { display: flex; gap: 8px; margin: 20px 0; }
+  input { flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #333; background: #161b22; color: #fff; }
+  button { padding: 10px 16px; border-radius: 8px; border: none; background: #2f81f7; color: #fff; cursor: pointer; }
+  .card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+  .answer { font-size: 1.05rem; line-height: 1.4; }
+  pre { white-space: pre-wrap; font-size: 0.8rem; color: #8b949e; overflow-x: auto; }
+  .examples span { display: inline-block; margin: 4px 6px 4px 0; padding: 4px 10px; background: #21262d; border-radius: 999px; font-size: 0.8rem; cursor: pointer; }
+</style>
+</head>
+<body>
+  <h1>✈️ Ask the Airport</h1>
+  <p>Pergunte em português. A resposta vem com o SQL gerado e, quando tem risco de clima, com o alerta de disrupção.</p>
+
+  <div class="examples">
+    <span onclick="ask(this.textContent)">quais voos saindo do Brasil tiveram maior ocupação na semana?</span>
+    <span onclick="ask(this.textContent)">qual a receita total por companhia aérea?</span>
+    <span onclick="ask(this.textContent)">quais as 10 rotas com mais passageiros?</span>
+  </div>
+
+  <form onsubmit="event.preventDefault(); ask(document.getElementById('q').value)">
+    <input id="q" placeholder="ex: quais voos de São Paulo tem risco de atraso por chuva?" />
+    <button type="submit">Perguntar</button>
+  </form>
+
+  <div id="result"></div>
+
+  <hr style="border: none; border-top: 1px solid #30363d; margin: 32px 0 24px;">
+
+  <h2 style="font-size: 1.1rem;">🔎 Busca semântica de voos parecidos</h2>
+  <p style="color: #8b949e; font-size: 0.9rem;">
+    Descreva o tipo de voo em palavras. O TiDB gera o embedding da frase com
+    <code>EMBED_TEXT</code> e ordena por <code>VEC_COSINE_DISTANCE</code> — sem serviço de
+    embedding externo.
+  </p>
+
+  <div class="examples">
+    <span onclick="similar(this.textContent)">voo cheio saindo do Brasil para a Europa</span>
+    <span onclick="similar(this.textContent)">voo vazio de madrugada em aeronave grande</span>
+    <span onclick="similar(this.textContent)">rota de alta receita no fim de semana</span>
+  </div>
+
+  <form onsubmit="event.preventDefault(); similar(document.getElementById('vq').value)">
+    <input id="vq" placeholder="ex: voo quase lotado para a América do Sul" />
+    <button type="submit">Buscar parecidos</button>
+  </form>
+
+  <div id="vresult"></div>
+
+  <script>
+    async function ask(question) {
+      if (!question) return;
+      document.getElementById('q').value = question;
+      const result = document.getElementById('result');
+      result.innerHTML = '<div class="card">Pensando…</div>';
+      try {
+        const resp = await fetch('/api/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question })
+        });
+        const data = await resp.json();
+        if (data.error) {
+          result.innerHTML = `<div class="card">⚠️ ${data.error}<pre>${data.sql || ''}</pre></div>`;
+          return;
+        }
+        result.innerHTML = `
+          <div class="card">
+            <div class="answer">${data.answer}</div>
+          </div>
+          <div class="card">
+            <strong>SQL gerado</strong>
+            <pre>${data.sql}</pre>
+            <strong>${data.rows.length} linha(s)</strong>
+            <pre>${JSON.stringify(data.rows.slice(0, 10), null, 2)}</pre>
+          </div>`;
+      } catch (e) {
+        result.innerHTML = `<div class="card">Erro: ${e}</div>`;
+      }
+    }
+
+    async function similar(query) {
+      if (!query) return;
+      document.getElementById('vq').value = query;
+      const box = document.getElementById('vresult');
+      box.innerHTML = '<div class="card">Buscando vizinhos mais próximos…</div>';
+      try {
+        const resp = await fetch('/api/similar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query })
+        });
+        const data = await resp.json();
+        if (data.error) {
+          box.innerHTML = `<div class="card">⚠️ ${data.error}</div>`;
+          return;
+        }
+        box.innerHTML = data.results.map(r => `
+          <div class="card">
+            <div style="color:#2f81f7; font-size:0.8rem; margin-bottom:6px;">
+              similaridade ${r.similaridade}% · distância ${r.distancia} · voo #${r.flight_id}
+            </div>
+            <div>${r.note}</div>
+          </div>`).join('');
+      } catch (e) {
+        box.innerHTML = `<div class="card">Erro: ${e}</div>`;
+      }
+    }
+  </script>
+</body>
+</html>

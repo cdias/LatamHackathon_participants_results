@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Horizon 90 — apresentação do ensaio de decisão aeroportuária.">
+    <title>Horizon 90 · Apresentação</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body class="pitch-page pitch-deck-page">
+    <div class="deck-shell" data-deck>
+      <header class="deck-header">
+        <a class="brand" href="/" aria-label="Horizon 90, apresentação"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Horizon <strong>90</strong></span></a>
+        <div class="deck-header-context"><span>GRUPO 5 · HACKATHON LATAM</span><small>Ensaio de capacidade aeroportuária</small></div>
+        <a class="deck-console-link" href="/console">Abrir simulação <i aria-hidden="true">→</i></a>
+      </header>
+      <main class="deck-stage" aria-live="polite">
+        <section class="deck-slide is-active" data-slide aria-labelledby="slide-title-1">
+          <div class="deck-slide-copy deck-hero-copy"><span class="section-kicker">01 · DECISÃO SOB PRESSÃO</span><h1 id="slide-title-1">Quando a capacidade cai, a decisão precisa ganhar tempo.</h1><p>Horizon 90 transforma um recorte histórico do aeroporto em uma resposta operacional clara, discutível e humana.</p><div class="deck-inline-note"><span aria-hidden="true"></span>Simulação histórica. Nenhuma alteração é feita na operação real.</div></div>
+          <figure class="deck-hero-reel"><video data-pitch-video autoplay muted loop playsinline controls preload="metadata" aria-label="Vídeo de TiDB e AWS se transformando em um avião"><source src="/static/horizon90-decision-reel.mp4" type="video/mp4">Seu navegador não suporta vídeo HTML5.</video><figcaption><span>VISÃO DO PROJETO</span><strong>TiDB + AWS → Horizon 90</strong><small>GRU · 30% de capacidade indisponível · 90 min</small></figcaption></figure>
+        </section>
+        <section class="deck-slide" data-slide aria-hidden="true" aria-labelledby="slide-title-2">
+          <div class="deck-slide-copy deck-problem-copy"><span class="section-kicker">02 · O PROBLEMA</span><h2 id="slide-title-2">A informação existe. O tempo para reunir, comparar e decidir desaparece.</h2><p>Operações, gestão aeroportuária e atendimento enxergam riscos diferentes. Sem uma mesma leitura, a pressão se espalha antes da coordenação começar.</p></div>
+          <div class="deck-pressure-board" aria-label="Cadeia de pressão operacional"><div><small>T+00</small><strong>Capacidade cai</strong><span>Uma restrição reduz a margem da malha.</span></div><i aria-hidden="true"></i><div><small>T+15</small><strong>Riscos divergem</strong><span>Conexões, pontualidade e atendimento pedem respostas distintas.</span></div><i aria-hidden="true"></i><div><small>T+30</small><strong>Decisão atrasa</strong><span>Sem coordenação, o impacto alcança mais passageiros.</span></div></div>
+        </section>
+        <section class="deck-slide" data-slide aria-hidden="true" aria-labelledby="slide-title-3">
+          <div class="deck-slide-copy"><span class="section-kicker">03 · A RESPOSTA</span><h2 id="slide-title-3">Uma mesma mesa de decisão para os próximos minutos.</h2><p>O ensaio não executa ações. Ele organiza evidências, alternativas e perguntas para a equipe validar antes de agir.</p></div>
+          <ol class="deck-response-steps"><li><span>01</span><div><strong>Dimensionar</strong><p>Voos, reservas e capacidade expostos no recorte histórico.</p></div></li><li><span>02</span><div><strong>Confrontar</strong><p>Estratégias, reações e objeções de papéis operacionais.</p></div></li><li><span>03</span><div><strong>Coordenar</strong><p>Próximos passos, responsáveis e ponto de reavaliação.</p></div></li></ol>
+        </section>
+        <section class="deck-slide" data-slide aria-hidden="true" aria-labelledby="slide-title-4">
+          <div class="deck-slide-copy"><span class="section-kicker">04 · A ARQUITETURA</span><h2 id="slide-title-4">Dados confiáveis entram. Decisão humana sai.</h2><p>Uma arquitetura que mantém o operador no controle e torna cada recomendação revisável.</p></div>
+          <div class="deck-architecture" aria-label="Arquitetura da solução"><article><small>01 · DADOS</small><strong>airportdb</strong><p>Recorte histórico e agregados.</p></article><i aria-hidden="true">→</i><article><small>02 · CONTEXTO</small><strong>TiDB + Vector</strong><p>Exposição e evidências semânticas.</p></article><i aria-hidden="true">→</i><article><small>03 · DELIBERAÇÃO</small><strong>OpenAI</strong><p>Rodada multiagente estruturada.</p></article><i aria-hidden="true">→</i><article><small>04 · OPERAÇÃO</small><strong>Validação humana</strong><p>Folha de resposta e revisão.</p></article></div><p class="deck-source-line">Execução local · TiDB Cloud · OpenAI Responses · registro local</p>
+        </section>
+        <section class="deck-slide" data-slide aria-hidden="true" aria-labelledby="slide-title-5">
+          <div class="deck-slide-copy"><span class="section-kicker">05 · O QUE O OPERADOR RECEBE</span><h2 id="slide-title-5">Uma resposta para os próximos minutos — não um texto genérico.</h2></div>
+          <div class="deck-response-sheet"><header><span>FOLHA DE RESPOSTA</span><strong>Coordenar com validação humana</strong><small>Reavaliar em 15 min</small></header><ol><li><span>AGORA</span><div><strong>Iniciar coordenação</strong><p>O que confirmar, com quem e qual sinal mostra controle.</p></div></li><li><span>15–30 MIN</span><div><strong>Proteger o que importa</strong><p>Equilibrar conexões, pontualidade e atendimento com trade-offs explícitos.</p></div></li><li><span>REAVALIAR</span><div><strong>Escalar ou encerrar</strong><p>Revisar hipóteses, impactos e a próxima decisão.</p></div></li></ol></div>
+        </section>
+        <section class="deck-slide" data-slide aria-hidden="true" aria-labelledby="slide-title-6">
+          <div class="deck-slide-copy deck-team-copy"><span class="section-kicker">06 · GRUPO 5</span><h2 id="slide-title-6">Construído para tornar a decisão operacional mais legível sob pressão.</h2><p>Horizon 90 é uma demonstração de decisão assistida: dados e IA organizam o cenário; a equipe humana mantém a decisão.</p><a class="deck-final-cta" href="/console">Entrar no cenário simulado <i aria-hidden="true">→</i></a></div>
+          <ul class="deck-team-list" aria-label="Integrantes do grupo"><li>Israel Cygler</li><li>Gustavo Tinoco</li><li>Wesley Ribeiro</li><li>Rafaeli Gil</li></ul>
+        </section>
+      </main>
+      <footer class="deck-footer"><span class="deck-caption">Horizon 90 · ensaio multiagente inspirado no MiroFish</span><div class="deck-navigation" aria-label="Navegação da apresentação"><button type="button" data-deck-previous aria-label="Slide anterior">←</button><span><strong data-deck-counter>1</strong><small>/ 6</small></span><div class="deck-progress" aria-hidden="true"><i data-deck-progress></i></div><button type="button" data-deck-next aria-label="Próximo slide">→</button></div><span class="deck-keyboard-hint">Use ← → no teclado</span></footer>
+    </div>
+    <script type="module" src="/static/pitch.js"></script>
+  </body>
+</html>

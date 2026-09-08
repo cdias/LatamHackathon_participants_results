@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitch Executivo & Parecer de Viabilidade — REVENUE GUARD</title>
+    <style>
+        /* ==========================================================================
+           REVENUE GUARD — Executive Dark Theme System & Responsive Layout
+           ========================================================================== */
+        :root {
+            --bg-body: #0b0f19;
+            --bg-card: #161b26;
+            --bg-card-hover: #1f2738;
+            --bg-nav: rgba(11, 15, 25, 0.92);
+            --border-color: #2a3449;
+            --border-glow: #3d4c6b;
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            
+            --accent-orange: #FF5315;
+            --accent-orange-glow: rgba(255, 83, 21, 0.25);
+            --accent-cyan: #38bdf8;
+            --accent-green: #34d399;
+            --accent-purple: #a855f7;
+            --accent-amber: #f59e0b;
+            --accent-red: #f43f5e;
+            
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+            
+            --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            --shadow-glow: 0 0 20px var(--accent-orange-glow);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            padding-top: 70px;
+        }
+
+        /* Container Principal Responsivo */
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ==========================================================================
+           2. SUMÁRIO NAVEGÁVEL (FIXED NAVBAR)
+           ========================================================================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--bg-nav);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 800;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-logo span.highlight {
+            color: var(--accent-orange);
+        }
+
+        .brand-badge {
+            background: rgba(255, 83, 21, 0.15);
+            color: var(--accent-orange);
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 83, 21, 0.3);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.25rem;
+            list-style: none;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .nav-links::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            padding: 0.35rem 0.65rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-orange);
+            background: rgba(255, 83, 21, 0.08);
+        }
+
+        /* ==========================================================================
+           1. HERO EXECUTIVO
+           ========================================================================== */
+        .hero-section {
+            padding: 3rem 0 2rem;
+            border-bottom: 1px solid var(--border-color);
+            background: radial-gradient(circle at 80% 20%, rgba(255, 83, 21, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 20% 80%, rgba(56, 189, 248, 0.05) 0%, transparent 40%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 83, 21, 0.12);
+            border: 1px solid rgba(255, 83, 21, 0.3);
+            color: var(--accent-orange);
+            padding: 0.4rem 0.85rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-title {
+            font-size: 2.75rem;
+            font-weight: 900;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.75rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .one-sentence-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-orange);
+            padding: 1.25rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-card);
+        }
+
+        .one-sentence-box strong {
+            color: var(--accent-orange);
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .meta-value {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-top: 0.15rem;
+        }
+
+        /* Hero Right Card (Stat Highlight) */
+        .hero-stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            position: relative;
+            box-shadow: var(--shadow-card), var(--shadow-glow);
+            overflow: hidden;
+        }
+
+        .hero-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-cyan));
+        }
+
+        .stat-badge {
+            background: rgba(52, 211, 153, 0.15);
+            color: var(--accent-green);
+            padding: 0.3rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+        }
+
+        .hero-stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--accent-green);
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-stat-label {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .comparison-pills {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .pill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .pill-item.bad {
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            color: var(--accent-red);
+        }
+
+        .pill-item.good {
+            background: rgba(52, 211, 153, 0.1);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            color: var(--accent-green);
+        }
+
+        /* ==========================================================================
+           SEÇÕES GENÉRICAS & CARDS
+           ========================================================================== */
+        .section {
+            padding: 3.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-header {
+            margin-bottom: 2.25rem;
+        }
+
+        .section-subtitle {
+            color: var(--accent-orange);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        .section-description {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-top: 0.5rem;
+            max-width: 850px;
+        }
+
+        /* Card Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .grid-5 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            box-shadow: var(--shadow-card);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-2px);
+        }
+
+        .card-header-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            background: rgba(255, 83, 21, 0.1);
+            color: var(--accent-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+            border: 1px solid rgba(255, 83, 21, 0.2);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .card-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ==========================================================================
+           3. VISÃO EXECUTIVA (SÍNTESE DIREÇÃO)
+           ========================================================================== */
+        .exec-summary-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .exec-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+
+        .exec-number {
+            background: rgba(255, 83, 21, 0.15);
+            color: var(--accent-orange);
+            font-weight: 900;
+            font-size: 1.1rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 83, 21, 0.3);
+        }
+
+        .exec-content h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .exec-content p {
+            font-size: 0.925rem;
+            color: var(--text-secondary);
+        }
+
+        /* ==========================================================================
+           4. O PROBLEMA REAL (HISTÓRIA DOS BRINQUEDOS & COMPARATIVO)
+           ========================================================================== */
+        .story-box {
+            background: linear-gradient(135deg, rgba(22, 27, 38, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .story-badge {
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent-cyan);
+            padding: 0.3rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .comp-card {
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .comp-card.bad {
+            background: rgba(244, 63, 94, 0.05);
+            border-color: rgba(244, 63, 94, 0.3);
+        }
+
+        .comp-card.good {
+            background: rgba(52, 211, 153, 0.05);
+            border-color: rgba(52, 211, 153, 0.3);
+        }
+
+        .comp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .comp-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+
+        .comp-card.bad .comp-title { color: var(--accent-red); }
+        .comp-card.good .comp-title { color: var(--accent-green); }
+
+        .comp-price {
+            font-size: 1.75rem;
+            font-weight: 900;
+        }
+
+        .comp-card.bad .comp-price { color: var(--accent-red); }
+        .comp-card.good .comp-price { color: var(--accent-green); }
+
+        .comp-ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-top: 1rem;
+        }
+
+        .comp-ul li {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .comp-ul li::before {
+            content: "•";
+            font-weight: bold;
+        }
+
+        .comp-card.bad .comp-ul li::before { color: var(--accent-red); }
+        .comp-card.good .comp-ul li::before { color: var(--accent-green); }
+
+        /* ==========================================================================
+           5. PARECER DE VIABILIDADE T-24H (RESPOSTA ÀS DÚVIDAS)
+           ========================================================================== */
+        .qa-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-cyan);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .qa-question {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .qa-answer {
+            color: var(--text-secondary);
+            font-size: 0.975rem;
+            line-height: 1.65;
+        }
+
+        .triggers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin-top: 1.25rem;
+        }
+
+        .trigger-item {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            padding: 1.25rem;
+            border-radius: var(--radius-md);
+        }
+
+        .trigger-item h5 {
+            color: var(--accent-cyan);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        /* ==========================================================================
+           6. OS 5 ROBÔS DO SWARM
+           ========================================================================== */
+        .swarm-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .swarm-card::top {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .swarm-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .swarm-role {
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .swarm-name {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .swarm-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ==========================================================================
+           7. INDICADORES & KPIS
+           ========================================================================== */
+        .kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .kpi-value {
+            font-size: 2.25rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 0.35rem;
+            letter-spacing: -0.02em;
+        }
+
+        .kpi-value.orange { color: var(--accent-orange); }
+        .kpi-value.green { color: var(--accent-green); }
+        .kpi-value.cyan { color: var(--accent-cyan); }
+        .kpi-value.purple { color: var(--accent-purple); }
+
+        .kpi-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ==========================================================================
+           8. TABELAS RESPONSIVAS PROFISSIONAIS
+           ========================================================================== */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-card);
+            background: var(--bg-card);
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .custom-table th {
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        .custom-table td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            vertical-align: middle;
+        }
+
+        .custom-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .custom-table tr:hover td {
+            background: rgba(255, 83, 21, 0.03);
+            color: var(--text-primary);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.6rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .badge.red { background: rgba(244, 63, 94, 0.15); color: var(--accent-red); border: 1px solid rgba(244, 63, 94, 0.3); }
+        .badge.green { background: rgba(52, 211, 153, 0.15); color: var(--accent-green); border: 1px solid rgba(52, 211, 153, 0.3); }
+        .badge.orange { background: rgba(255, 83, 21, 0.15); color: var(--accent-orange); border: 1px solid rgba(255, 83, 21, 0.3); }
+        .badge.cyan { background: rgba(56, 189, 248, 0.15); color: var(--accent-cyan); border: 1px solid rgba(56, 189, 248, 0.3); }
+
+        /* ==========================================================================
+           10. CRONOLOGIA OPERACIONAL (TIMELINE)
+           ========================================================================== */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 55px;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 9px;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 2px solid var(--accent-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--accent-orange);
+        }
+
+        .timeline-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.25rem 1.5rem;
+        }
+
+        .timeline-time {
+            font-size: 0.8rem;
+            color: var(--accent-orange);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* ==========================================================================
+           PITCH SCRIPT & FOOTER
+           ========================================================================== */
+        .script-box {
+            background: #0f172a;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            font-family: var(--font-sans);
+            position: relative;
+        }
+
+        .script-step {
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .script-step:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .script-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .script-time {
+            font-size: 0.75rem;
+            background: rgba(255, 83, 21, 0.2);
+            color: var(--accent-orange);
+            padding: 0.15rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+        }
+
+        .script-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .script-text {
+            color: #cbd5e1;
+            font-size: 0.925rem;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .footer {
+            padding: 3rem 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border-color);
+            background: #080b12;
+        }
+
+        /* ==========================================================================
+           RESPONSIVIDADE (MEDIA QUERIES)
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .triggers-grid {
+                grid-template-columns: 1fr;
+            }
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px;
+            }
+            .navbar {
+                height: 60px;
+            }
+            .hero-title {
+                font-size: 2rem;
+            }
+            .hero-stat-number {
+                font-size: 2.75rem;
+            }
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .exec-item {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            .comp-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .timeline::before {
+                left: 15px;
+            }
+            .timeline-item {
+                padding-left: 45px;
+            }
+            .timeline-marker {
+                left: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 2. SUMÁRIO NAVEGÁVEL (FIXED NAVBAR) -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="brand-logo">
+                ✈️ REVENUE <span class="highlight">GUARD</span>
+                <span class="brand-badge">Swarm AI</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#visao-executiva" class="nav-link">Visão Executiva</a></li>
+                <li><a href="#o-problema" class="nav-link">O Problema</a></li>
+                <li><a href="#viabilidade" class="nav-link">Viabilidade T-24h</a></li>
+                <li><a href="#swarm-robots" class="nav-link">Os 5 Robôs</a></li>
+                <li><a href="#indicadores" class="nav-link">Indicadores</a></li>
+                <li><a href="#anac-legal" class="nav-link">ANAC 400 Legal</a></li>
+                <li><a href="#timeline" class="nav-link">Timeline T-24h</a></li>
+                <li><a href="#plano-acao" class="nav-link">Plano de Ação</a></li>
+                <li><a href="#roteiro-pitch" class="nav-link">Pitch Script</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- 1. HERO EXECUTIVO -->
+        <section class="hero-section">
+            <div class="hero-grid">
+                <div class="hero-left">
+                    <div class="hero-tag">
+                        <span>⚡ Pitch Executivo & Parecer de Viabilidade</span>
+                    </div>
+                    <h1 class="hero-title">REVENUE GUARD</h1>
+                    <p class="hero-subtitle">
+                        Supercérebro de Inteligência Artificial para Companhias Aéreas que prevê e resolve problemas de overbooking 24 horas antes do voo.
+                    </p>
+                    <div class="one-sentence-box">
+                        🎈 <strong>O Projeto em 1 Frase:</strong> O REVENUE GUARD descobre o risco de sobrealocação um dia antes, trocando uma crise caríssima no aeroporto por um acordo simples, preventivo e automatizado no celular do passageiro.
+                    </div>
+                    <div class="meta-grid">
+                        <div class="meta-item">
+                            <span class="meta-label">Setor</span>
+                            <span class="meta-value">Aviação Comercial</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Regulação</span>
+                            <span class="meta-value">ANAC Res. 400 (Art. 10)</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Arquitetura</span>
+                            <span class="meta-value">Swarm de 5 Agentes</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Antecedência</span>
+                            <span class="meta-value">T-24h Preditivo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-right">
+                    <div class="hero-stat-card">
+                        <span class="stat-badge">REDUÇÃO DE CUSTO DIRETO</span>
+                        <div class="hero-stat-number">-88%</div>
+                        <div class="hero-stat-label">Economia Unitária por Passageiro</div>
+                        <div class="comparison-pills">
+                            <div class="pill-item bad">
+                                <span>Reação no Aeroporto (Crise):</span>
+                                <strong>R$ 2.500 / pax</strong>
+                            </div>
+                            <div class="pill-item good">
+                                <span>REVENUE GUARD (T-24h):</span>
+                                <strong>R$ 300 / pax</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. VISÃO EXECUTIVA -->
+        <section id="visao-executiva" class="section">
+            <div class="section-header">
+                <div class="section-subtitle">Síntese Estratégica para a Diretoria</div>
+                <h2 class="section-title">3. Visão Executiva em 5 Tópicos</h2>
+                <p class="section-description">Resumo executivo consolidado com as principais alavancas de valor e viabilidade do projeto REVENUE GUARD.</p>
+            </div>
+
+            <div class="exec-summary-list">
+                <div class="exec-item">
+                    <div class="exec-number">1</div>
+                    <div class="exec-content">
+                        <h4>A Virada Preditiva T-24h</h4>
+                        <p>O overbooking não é um evento surpresa do portão de embarque; ele é previsto matematicamente 24 horas antes na abertura do check-in online ou em trocas operacionais de aeronaves (downgauge). O REVENUE GUARD antecipa a tomada de decisão para a véspera.</p>
+                    </div>
+                </div>
+                <div class="exec-item">
+                    <div class="exec-number">2</div>
+                    <div class="exec-number" style="background: rgba(56, 189, 248, 0.15); color: var(--accent-cyan); border-color: rgba(56, 189, 248, 0.3);">2</div>
+                    <div class="exec-content">
+                        <h4>Eficiência Financeira Brutal (-88% de Custo)</h4>
+                        <p>Troca o custo emergencial de R$ 2.500,00 por passageiro no balcão (hotel, táxi, compensação compulsória e processos judiciais) por uma oferta voluntária de R$ 300,00 em voucher/milhas enviada 24h antes no WhatsApp.</p>
+                    </div>
+                </div>
+                <div class="exec-item">
+                    <div class="exec-number" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); border-color: rgba(168, 85, 247, 0.3);">3</div>
+                    <div class="exec-content">
+                        <h4>Arquitetura Autônoma em Enxame (Swarm AI)</h4>
+                        <p>Operado por 5 robôs especializados (Radar, Calculadora, Regras, Devil's Advocate e Chefe) que analisam a malha, calculam margens, validam restrições operacionais e registram logs imutáveis de conformidade.</p>
+                    </div>
+                </div>
+                <div class="exec-item">
+                    <div class="exec-number" style="background: rgba(52, 211, 153, 0.15); color: var(--accent-green); border-color: rgba(52, 211, 153, 0.3);">4</div>
+                    <div class="exec-content">
+                        <h4>Amparo Regulatório Imbatível (ANAC Resolução 400)</h4>
+                        <p>A solução atua estritamente amparada pelo Artigo 10 da Resolução 400 da ANAC, que regulamenta a busca por voluntários para reacomodação. Isso ZERA o risco de judicialização por dano moral.</p>
+                    </div>
+                </div>
+                <div class="exec-item">
+                    <div class="exec-number" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); border-color: rgba(245, 158, 11, 0.3);">5</div>
+                    <div class="exec-content">
+                        <h4>Entregáveis Funcionais do Hackathon</h4>
+                        <p>Desenvolvidos WebApp Cockpit C-Level com métricas ao vivo de economia de capital e a API de mensageria ativa WhatsApp para negociação automatizada em linguagem natural.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. O PROBLEMA REAL -->
+        <section id="o-problema" class="section">
+            <div class="section-header">
+                <div class="section-subtitle">A História dos Brinquedos & Lado a Lado</div>
+                <h2 class="section-title">4. Qual é o Problema Real?</h2>
+                <p class="section-description">Entendendo a dinâmica da sobrealocação e o contraste entre o modelo atual reativo e o modelo preditivo REVENUE GUARD.</p>
+            </div>
+
+            <div class="story-box">
+                <span class="story-badge">NARRATIVA DIDÁTICA</span>
+                <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">✈️ A Analogia das 10 Passagens e 8 Assentos</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6;">
+                    Imagine que você vai viajar e a companhia aérea vendeu 10 passagens, mas o avião só tem 8 cadeiras físicas. No modelo antigo, a empresa espera todo mundo chegar no portão com as malas para descobrir quem sobra. No REVENUE GUARD, a inteligência artificial aborda os passageiros voluntários antes de saírem de casa.
+                </p>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comp-card bad">
+                    <div>
+                        <div class="comp-header">
+                            <span class="comp-title">❌ O Jeito Ruim (Reativo no Balcão)</span>
+                            <span class="comp-price">R$ 2.500</span>
+                        </div>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">Ocorre no dia do voo, com o passageiro já no portão de embarque.</p>
+                        <ul class="comp-ul">
+                            <li>Compensação compulsória de preterição (DES ANAC).</li>
+                            <li>Pagamento de hotel, táxi e alimentação.</li>
+                            <li>Gritaria, estresse e desgaste da imagem da marca.</li>
+                            <li><strong>Risco Altíssimo de Processo por Dano Moral (R$ 5k a 10k).</strong></li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: 1.5rem; text-align: right;">
+                        <span class="badge red">CUSTO ELEVADO + PROCESSOS</span>
+                    </div>
+                </div>
+
+                <div class="comp-card good">
+                    <div>
+                        <div class="comp-header">
+                            <span class="comp-title">⚡ O Jeito REVENUE GUARD (T-24h)</span>
+                            <span class="comp-price">R$ 300</span>
+                        </div>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">Ocorre 24h antes, via WhatsApp no celular do cliente.</p>
+                        <ul class="comp-ul">
+                            <li>Mensagem amigável com proposta de voucher/milhas.</li>
+                            <li>O passageiro aceita feliz e reorganiza seu dia em casa.</li>
+                            <li>Liberação do assento sem qualquer estresse no aeroporto.</li>
+                            <li><strong>ZERO Risco Judicial (Acordo Voluntário Art. 10 ANAC).</strong></li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: 1.5rem; text-align: right;">
+                        <span class="badge green">ECONOMIA DE 88% + CLIENTE SATISFEITO</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. PARECER DE VIABILIDADE T-24H -->
+        <section id="viabilidade" class="section">
+            <div class="section-header">
+                <div class="section-subtitle">Análise Técnica & Mercadológica</div>
+                <h2 class="section-title">5. Parecer de Viabilidade Operacional T-24h</h2>
+                <p class="section-description">Esclarecimento analítico demonstrando por que o overbooking é previsível 24h antes no mercado brasileiro.</p>
+            </div>
+
+            <div class="qa-card">
+                <div class="qa-question">
+                    <span>❓ Dúvida Frequente:</span> "O overbooking não é descoberto apenas na hora do embarque?"
+                </div>
+                <div class="qa-answer">
+                    <strong>Não!</strong> O que ocorre no portão de embarque é apenas o sintoma final de uma falha de gestão preditiva. No setor aéreo brasileiro, o risco de sobrealocação estoura com precisão matemática exatamente 24 horas antes do voo (T-24h) devido a 3 gatilhos operacionais claros:
+                </div>
+
+                <div class="triggers-grid">
+                    <div class="trigger-item">
+                        <h5>1. Abertura do Check-in Online (T-24h)</h5>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">Exatamente 24h antes, abre o check-in no app. O algoritmo cruza: bilhetes vendidos (180) vs capacidade física (170). Se em poucas horas 170 já confirmaram, o sistema prevê com certeza o overbooking.</p>
+                    </div>
+                    <div class="trigger-item">
+                        <h5>2. Downgauge (Troca de Aeronave)</h5>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">Quando um A321 (220 lugares) sofre pane e é trocado por um A320 (174 lugares) na véspera, 46 passageiros entram instantaneamente em overbooking no PSS 12h a 18h antes do voo.</p>
+                    </div>
+                    <div class="trigger-item">
+                        <h5>3. Reacomodação em Cascata</h5>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">Cancelamentos de voos matutinos forçam a transferência de passageiros para os voos da tarde, estourando a capacidade física dos trechos seguintes com antecedência.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. OS 5 ROBÔS DO SWARM -->
+        <section id="swarm-robots" class="section">
+            <div class="section-header">
+                <div class="section-subtitle">Arquitetura de Agentes Inteligentes</div>
+                <h2 class="section-title">6. Os 5 Robôs do Enxame (Swarm AI)</h2>
+                <p class="section-description">Como a inteligência coletiva multi-agente opera em colaboração para tomar a decisão perfeita.</p>
+            </div>
+
+            <div class="grid-5">
+                <div class="swarm-card">
+                    <div class="swarm-icon">🔍</div>
+                    <div class="swarm-role">Agente Detector</div>
+                    <div class="swarm-name">Robô Radar</div>
+                    <div class="swarm-desc">Faz varredura contínua nos sistemas de reservas (PSS/TiDB Cloud) e identifica: <em>"Opa! O voo de amanhã vai dar confusão!"</em></div>
+                </div>
+
+                <div class="swarm-card">
+                    <div class="swarm-icon">🏷️</div>
+                    <div class="swarm-role">Agente Financeiro</div>
+                    <div class="swarm-name">Robô Calculadora</div>
+                    <div class="swarm-desc">Modela os custos em tempo real: <em>"Resolver agora custa R$ 300. Deixar para o aeroporto custa R$ 2.500!"</em></div>
+                </div>
+
+                <div class="swarm-card">
+                    <div class="swarm-icon">📖</div>
+                    <div class="swarm-role">Agente de Matching</div>
+                    <div class="swarm-name">Robô Livro de Regras</div>
+                    <div class="swarm-desc">Filtra o CRM para encontrar passageiros solo/lazer predispostos a aceitar ofertas voluntárias no WhatsApp.</div>
+                </div>
+
+                <div class="swarm-card">
+                    <div class="swarm-icon">😈</div>
+                    <div class="swarm-role">Agente Auditor</div>
+                    <div class="swarm-name">Devil's Advocate</div>
+                    <div class="swarm-desc">Desafia o plano: <em>"Atenção: o voo das 16h realmente tem assento vago para receber esse passageiro?"</em></div>
+                </div>
+
+                <div class="swarm-card">
+                    <div class="swarm-icon">⚖️</div>
+                    <div class="swarm-role">Agente Decisor</div>
+                    <div class="swarm-name">Robô Chefe</div>
+                    <div class="swarm-desc">Consolida pareceres, orquestra o envio no WhatsApp e grava o log imutável de conformidade legal.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. INDICADORES & KPIS -->
+        <section id="indicadores" class="section">
+            <div class="section-header">
+                <div class="section-subtitle">Métricas de Impacto e Unidade de Negócio</div>
+                <h2 class="section-title">7. Indicadores e KPIs do Projeto</h2>
+                <p class="section-description">Números consolidados que fundamentam o ROI imediato da solução no mercado brasileiro.</p>
+            </div>
+
+            <div class="grid-3">
+                <div class="kpi-card">
+                    <div class="kpi-value orange">R$ 32M</div>
+                    <div class="kpi-label">Perda Semanal Estimada no Brasil em Crises de Embarque</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value green">88%</div>
+                    <div class="kpi-label">Redução de Custo de Preterição (R$ 2.500 ➔ R$ 300)</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value cyan">0%</div>
+                    <div class="kpi-label">Risco de Judicialização por Dano Moral (Acordo Voluntário)</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value purple">T-24h</div>
+                    <div class="kpi-label">Antecedência Preditiva Média de Resolução</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value green">&gt; 65%</div>
+                    <div class="kpi-label">Taxa Estimada de Aceitação no WhatsApp (Benchmark Delta)</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value orange">5 Agentes</div>
+                    <div class="kpi-label">Enxame Inteligente com Decisão Colaborativa</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. CONFORMIDADE REGULATÓRIA (ANAC 400 LEGAL) -->
+        <section id="anac-legal" class="section">
+            <div class="section-header">
+                <div class="section-subtitle">Fundamentação Jurídica Imbatível</div>
+                <h2 class="section-title">8. Amparo Legal: ANAC Resolução 400 (Artigo 10)</h2>
+                <p class="section-description">Como a legislação brasileira apoia e protege o modelo de reacomodação voluntária prévia.</p>
+            </div>
+
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Modalidade de Overbooking</th>
+                            <th>Como Ocorre Operacionalmente</th>
+                            <th>Impacto Financeiro por Pax</th>
+                            <th>Risco de Processo Judicial</th>
+                            <th>Status Legal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Involuntário (No Balcão)</strong></td>
+                            <td>O passageiro descobre no portão de embarque que não vai voar contra a sua vontade.</td>
+                            <td><span class="badge red">~ R$ 2.500,00</span><br><small>(DES ANAC + Hotel + Táxi)</small></td>
+                            <td><span class="badge red">Altíssimo</span><br><small>(Dano Moral R$ 5k-10k)</small></td>
+                            <td><span class="badge red">Preterição Compulsória</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Voluntário (REVENUE GUARD T-24h)</strong></td>
+                            <td>A aérea procura passageiros dispostos a trocar de voo voluntariamente via WhatsApp 24h antes.</td>
+                            <td><span class="badge green">~ R$ 300,00</span><br><small>(Voucher negociado)</small></td>
+                            <td><span class="badge green">ZERO</span><br><small>(Acordo firmado)</small></td>
+                            <td><span class="badge green">Art. 10 Res. 400 ANAC</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 1.5rem; background: rgba(52, 211, 153, 0.05); border: 1px solid rgba(52, 211, 153, 0.2); padding: 1.25rem; border-radius: var(--radius-md); font-size: 0.9rem; color: var(--text-secondary);">
+                📜 <strong>Texto do Art. 10 da Resolução 400 ANAC:</strong> <em>"Sempre que o número de passageiros para o voo exceder a disponibilidade de assentos, a empresa aérea deverá procurar por voluntários para serem reacomodados em outros voos mediante negociação de compensação."</em>
+            </div>
+        </section>
+
+        <!-- 10. CRONOLOGIA OPERACIONAL (TIMELINE) -->
+        <section id="timeline" class="section">
+            <div class="section-header">
+                <div class="section-subtitle">Fluxo de Execução Minuto a Minuto</div>
+                <h2 class="section-title">9. Timeline Operacional do Atendimento T-24h</h2>
+                <p class="section-description">Jornada de execução automatizada a partir do momento de abertura do check-in.</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">T - 24 horas</div>
+                        <div class="timeline-title">Abertura do Check-in & Trigger do Robô Radar</div>
+                        <p style="font-size: 0.875rem; color: var(--text-secondary);">O check-in online abre. O Robô Radar identifica sobrealocação prevista de 2 assentos na rota BSB ➔ GRU.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">T - 23h 45m</div>
+                        <div class="timeline-title">Cálculo de Margem & Stress Test do Enxame</div>
+                        <p style="font-size: 0.875rem; color: var(--text-secondary);">O Robô Calculadora autoriza oferta de R$ 300. O Devil's Advocate confirma assentos vagos no voo 2h mais tarde.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">T - 23h 30m</div>
+                        <div class="timeline-title">Disparo da Notificação WhatsApp</div>
+                        <p style="font-size: 0.875rem; color: var(--text-secondary);">O passageiro recebe a notificação no WhatsApp: <em>"Topa voar 2h mais tarde e ganhar R$ 300 em presente?"</em></p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">4</div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">T - 22h 10m</div>
+                        <div class="timeline-title">Aceite do Cliente & Reacomodação Automática</div>
+                        <p style="font-size: 0.875rem; color: var(--text-secondary);">O cliente clica em "Aceitar". O sistema reacomoda a reserva e emite o voucher instantaneamente.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">5</div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">T - 00h 00m (Embarque)</div>
+                        <div class="timeline-title">Voo Decola sem Crise no Aeroporto</div>
+                        <p style="font-size: 0.875rem; color: var(--text-secondary);">Todos os passageiros presentes possuem assentos garantidos. Crise evitada e economia de R$ 2.200 por vaga capturada.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 12. PLANO DE AÇÃO -->
+        <section id="plano-acao" class="section">
+            <div class="section-header">
+                <div class="section-subtitle">Roadmap para Implantação Mercado</div>
+                <h2 class="section-title">10. Plano de Ação Estruturado</h2>
+                <p class="section-description">Etapas práticas da fase de MVP Hackathon até o Rollout em Produção.</p>
+            </div>
+
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Etapa / Ação</th>
+                            <th>Frente Principal</th>
+                            <th>Responsável</th>
+                            <th>Prioridade</th>
+                            <th>Prazo</th>
+                            <th>Impacto Esperado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. Protótipo Cockpit C-Level</strong></td>
+                            <td>Front-End / Analytics</td>
+                            <td>Squad Hackathon</td>
+                            <td><span class="badge red">Crítica</span></td>
+                            <td>Concluído</td>
+                            <td>Visualização ao vivo das economias geradas pelo Swarm.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. API Mensageria WhatsApp</strong></td>
+                            <td>Integração / AI</td>
+                            <td>Squad Hackathon</td>
+                            <td><span class="badge red">Crítica</span></td>
+                            <td>Concluído</td>
+                            <td>Comunicação direta em linguagem natural com o passageiro.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Conexão com PSS (Amadeus/Sabre)</strong></td>
+                            <td>Engenharia de Dados</td>
+                            <td>Time de Integração</td>
+                            <td><span class="badge orange">Alta</span></td>
+                            <td>30 Dias</td>
+                            <td>Injestão contínua de status de voos em tempo real.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Homologação Jurídica ANAC 400</strong></td>
+                            <td>Governança / Legal</td>
+                            <td>Jurídico Aéreo</td>
+                            <td><span class="badge cyan">Média</span></td>
+                            <td>45 Dias</td>
+                            <td>Validação dos termos do voucher voluntário via WhatsApp.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 13. ROTEIRO DO PITCH FALADO -->
+        <section id="roteiro-pitch" class="section">
+            <div class="section-header">
+                <div class="section-subtitle">Script de Apresentação de 3 Minutos</div>
+                <h2 class="section-title">11. Roteiro do Pitch Falado (180 Segundos)</h2>
+                <p class="section-description">Roteiro cronometrado para bancas de avaliação e apresentações executivas.</p>
+            </div>
+
+            <div class="script-box">
+                <div class="script-step">
+                    <div class="script-header">
+                        <span class="script-title">1. O Hook e a Dor Financeira do Mercado</span>
+                        <span class="script-time">00:00 - 00:30 (30s)</span>
+                    </div>
+                    <p class="script-text">
+                        "Senhores jurados e executivos, todas as semanas, as companhias aéreas no Brasil perdem quase R$ 32 milhões de reais com o caos do overbooking gerenciado no portão de embarque. Quando o passageiro descobre que não vai embarcar já com as malas na mão, a companhia aérea paga multa imediata da ANAC, hotel, táxi, e enfrenta processos. Custo total da reação no balcão? R$ 2.500,00 por pessoa. A nossa pergunta foi: E se pudéssemos resolver isso 24 horas antes por apenas R$ 300,00?"
+                    </p>
+                </div>
+
+                <div class="script-step">
+                    <div class="script-header">
+                        <span class="script-title">2. A Solução REVENUE GUARD & Swarm AI</span>
+                        <span class="script-time">00:30 - 01:15 (45s)</span>
+                    </div>
+                    <p class="script-text">
+                        "Apresentamos o REVENUE GUARD: um 'supercérebro' de IA operado por um enxame de 5 agentes autônomos. O overbooking não nasce na porta do avião; ele é decretado 24 horas antes, no momento em que abre o check-in online ou na troca de aeronave. Nosso Robô Radar detecta a sobrealocação no PSS em T-24h. O Robô Calculadora prova que agir antes custa R$ 300 contra R$ 2.500 do dia seguinte. E o Robô do Contra valida se há vaga no voo seguinte."
+                    </p>
+                </div>
+
+                <div class="script-step">
+                    <div class="script-header">
+                        <span class="script-title">3. Experiência WhatsApp & Amparo Legal ANAC 400</span>
+                        <span class="script-time">01:15 - 02:30 (75s)</span>
+                    </div>
+                    <p class="script-text">
+                        "Em vez de gritaria no aeroporto, o cliente recebe uma mensagem amigável no WhatsApp 24h antes: 'Oi! Se viajar 2h mais tarde amanhã, te damos R$ 300 em presente!'. Ele aceita feliz no celular! Isso é 100% amparado pelo Artigo 10 da Resolução 400 da ANAC, zerando o risco de processos judiciais por dano moral. Reduzimos o custo em 88%!"
+                    </p>
+                </div>
+
+                <div class="script-step">
+                    <div class="script-header">
+                        <span class="script-title">4. Fechamento e Call to Action</span>
+                        <span class="script-time">02:30 - 03:00 (30s)</span>
+                    </div>
+                    <p class="script-text">
+                        "Construímos no Hackathon o Cockpit C-Level com gráficos ao vivo e a API funcional de WhatsApp. O REVENUE GUARD troca o caos milionário do balcão pela inteligência preditiva no bolso do cliente. Muito obrigado!"
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONCLUSÃO EXECUTIVA -->
+        <section class="section" style="border-bottom: none;">
+            <div style="background: linear-gradient(135deg, rgba(255, 83, 21, 0.1) 0%, rgba(56, 189, 248, 0.05) 100%); border: 1px solid rgba(255, 83, 21, 0.3); border-radius: var(--radius-lg); padding: 2.5rem; text-align: center;">
+                <h2 style="font-size: 1.8rem; font-weight: 900; margin-bottom: 1rem; color: var(--text-primary);">
+                    🚀 Inteligência Preditiva que Transforma Prejuízo em Fidelização
+                </h2>
+                <p style="color: var(--text-secondary); max-width: 800px; margin: 0 auto 1.5rem; font-size: 1.05rem;">
+                    O REVENUE GUARD prova que a tecnologia de Agentes de IA em Enxame não serve apenas para automatizar processos, mas para criar novas categorias de eficiência operacional que eliminam passivos milionários antes que eles aconteçam.
+                </p>
+                <div class="badge orange" style="font-size: 0.9rem; padding: 0.5rem 1rem;">
+                    REVENUE GUARD 2026 — Transformando Crises em Oportunidades de Negócio
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <p>REVENUE GUARD — Documento Executivo de Arquitetura & Parecer de Viabilidade Técnico-Regulatória</p>
+            <p style="margin-top: 0.5rem; color: var(--text-muted); font-size: 0.75rem;">
+                Construído em conformidade com a Resolução 400 da ANAC • Proteção de Dados LGPD • Painel C-Level & Swarm AI
+            </p>
+        </div>
+    </footer>
+
+    <!-- SCRIPT SIMPLES PARA INTERATIVIDADE E SMOOTH SCROLL -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Highlight active navigation link on scroll
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            window.addEventListener('scroll', function() {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

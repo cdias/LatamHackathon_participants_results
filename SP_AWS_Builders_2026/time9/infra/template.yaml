@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  AirRevenue - deploy serverless ALTERNATIVO (API Gateway + Lambda).
+  NAO executado no hackathon: a conta do time e bedrock-only (nega lambda/cloudformation/
+  s3/cloudfront). Deploy real foi na EC2 (ver infra/deploy-ec2.md). Este template fica pronto
+  para uma conta com permissoes amplas (Fase 2).
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 512
+    Runtime: python3.12
+
+Parameters:
+  TidbHost: { Type: String }
+  TidbUser: { Type: String }
+  TidbPassword: { Type: String, NoEcho: true }
+  JwtSecret: { Type: String, NoEcho: true }
+  BedrockToken: { Type: String, NoEcho: true, Default: "" }
+
+Resources:
+  AirRevenueApi:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lambda_handler.handler
+      CodeUri: ../backend/
+      Environment:
+        Variables:
+          TIDB_HOST: !Ref TidbHost
+          TIDB_USER: !Ref TidbUser
+          TIDB_PASSWORD: !Ref TidbPassword
+          TIDB_DATABASE: airportdb
+          JWT_SECRET: !Ref JwtSecret
+          AWS_REGION: ap-southeast-1
+          AWS_BEARER_TOKEN_BEDROCK: !Ref BedrockToken
+      Events:
+        Api:
+          Type: HttpApi
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+
+Outputs:
+  ApiUrl:
+    Description: URL base da API
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com"

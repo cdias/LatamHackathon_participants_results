@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AirRevenue — Pitch 2 min</title>
+<style>
+ :root{--bg:#0d1117;--card:#161b22;--bd:#30363d;--tx:#e6edf3;--mut:#8b949e;--acc:#58a6ff;--go:#3fb950;--wa:#d29922}
+ *{box-sizing:border-box;margin:0;padding:0}
+ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--tx)}
+ .deck{height:100vh;width:100vw;overflow:hidden;position:relative}
+ .slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
+  padding:6vh 8vw;background:radial-gradient(1200px 600px at 70% -10%,#1b2a4a33,transparent),var(--bg);animation:fade .4s ease}
+ .slide.on{display:flex}
+ @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+ h1{font-size:5vw;line-height:1.05;margin-bottom:2vh}
+ h2{font-size:3vw;color:var(--acc);margin-bottom:3vh}
+ p,li{font-size:2vw;line-height:1.5;color:var(--tx)}
+ .mut{color:var(--mut)}
+ ul{margin-left:1.4em;display:flex;flex-direction:column;gap:1.4vh}
+ .tag{display:inline-block;background:#1f6feb22;color:var(--acc);border:1px solid #1f6feb55;
+  border-radius:30px;padding:.4vh 1.4vw;font-size:1.5vw;margin-bottom:3vh}
+ .kpis{display:flex;gap:2vw;flex-wrap:wrap;margin-top:2vh}
+ .kpi{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:2.4vh 2vw;min-width:15vw}
+ .kpi b{display:block;font-size:3.6vw;color:var(--acc)}
+ .kpi span{color:var(--mut);font-size:1.4vw}
+ .stack{display:flex;gap:1.2vw;flex-wrap:wrap;margin-top:3vh}
+ .chip{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:1.4vh 1.4vw;font-size:1.5vw}
+ .chip b{color:var(--go)}
+ .shot{max-height:64vh;max-width:82vw;border:1px solid var(--bd);border-radius:12px;box-shadow:0 20px 60px #0008;align-self:center}
+ .row{display:flex;gap:4vw;align-items:center}
+ .col{flex:1}
+ .big{font-size:2.4vw}
+ .foot{position:absolute;bottom:2.5vh;left:8vw;right:8vw;display:flex;justify-content:space-between;align-items:center;color:var(--mut);font-size:1.3vw}
+ .dots{display:flex;gap:.8vw}
+ .dot{width:1vw;height:1vw;border-radius:50%;background:#30363d}
+ .dot.on{background:var(--acc)}
+ .nav{position:absolute;bottom:2vh;right:8vw;font-size:1.3vw;color:var(--mut)}
+ .em{color:var(--wa)}
+ .grn{color:var(--go)}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+ <!-- 1 CAPA -->
+ <section class="slide on">
+  <div class="tag">Hackathon TiDB × AWS · São Paulo 2026</div>
+  <h1>AirRevenue</h1>
+  <p class="big">O copiloto que <b class="grn">enche o voo antes de ele decolar vazio</b>.</p>
+  <p class="mut" style="margin-top:2vh">Recomendação de promoções para voos ociosos — direto para o passageiro certo.</p>
+ </section>
+
+ <!-- 2 PROBLEMA -->
+ <section class="slide">
+  <h2>O problema</h2>
+  <p class="big">Todo assento que decola vazio é <b class="em">receita perdida para sempre</b>.</p>
+  <ul>
+   <li>O <b>revenue manager</b> da companhia só enxerga a ociosidade nos relatórios — <b class="em">depois</b> do voo partir.</li>
+   <li>Promoção vai para a base inteira: baixa conversão e desconto dado a quem já compraria.</li>
+   <li>Redigir a campanha leva dias. O voo não espera.</li>
+  </ul>
+ </section>
+
+ <!-- 3 DADO REAL -->
+ <section class="slide">
+  <h2>O que os dados mostram</h2>
+  <p>Base <b>airportdb</b> no TiDB — uma semana de voos que tocam o Brasil:</p>
+  <div class="kpis">
+   <div class="kpi"><b>50,6%</b><span>ociosidade média da frota</span></div>
+   <div class="kpi"><b>632 mil</b><span>assentos vazios na semana</span></div>
+   <div class="kpi"><b>US$ 155M</b><span>receita potencial na mesa</span></div>
+  </div>
+  <p class="mut" style="margin-top:3vh">Metade dos assentos voa vazia. Existe uma base de passageiros frequentes esperando a oferta certa.</p>
+ </section>
+
+ <!-- 4 SOLUÇÃO -->
+ <section class="slide">
+  <h2>A solução</h2>
+  <p class="big">Uma área por companhia que, em segundos:</p>
+  <ul>
+   <li><b>Ranqueia</b> os voos ociosos por urgência (assentos vazios × dias até partir).</li>
+   <li><b>Escolhe o público</b>: passageiros frequentes com histórico na rota.</li>
+   <li><b>Gera a promoção</b> com IA (Amazon Bedrock) e cria a campanha.</li>
+  </ul>
+  <p class="mut" style="margin-top:2vh">De dias para segundos. O usuário tem nome: o <b>revenue manager</b> da companhia.</p>
+ </section>
+
+ <!-- 5 DEMO / PRODUTO -->
+ <section class="slide">
+  <h2>O produto, funcionando</h2>
+  <img class="shot" src="./demo-recommendations.png" alt="AirRevenue em uso">
+ </section>
+
+ <!-- 6 COMO FUNCIONA -->
+ <section class="slide">
+  <h2>Como funciona</h2>
+  <ul>
+   <li><b>TiDB</b> guarda voos, reservas e campanhas — e roda o ranking multi-tenant.</li>
+   <li><b>Busca vetorial</b> no TiDB (VEC_COSINE_DISTANCE + EMBED_TEXT) acha "voos parecidos".</li>
+   <li><b>Bedrock</b> (Claude 3 Haiku, Singapura) escreve o texto da oferta.</li>
+   <li><b>FastAPI + Vue</b> na EC2, com <b class="grn">segurança zero-trust</b>.</li>
+  </ul>
+ </section>
+
+ <!-- 7 SEGURANÇA -->
+ <section class="slide">
+  <h2>Zero-trust por dentro</h2>
+  <ul>
+   <li>Toda rota exige <b>JWT assinado</b> e curto — nada de confiar no cliente.</li>
+   <li><b>Isolamento multi-tenant</b>: a companhia A nunca vê dado da companhia B (filtro pelo <b>airline_id do token</b>).</li>
+   <li>PII de passageiros <b>mascarada</b>; segredos só no <code>.env</code>.</li>
+   <li><b>11 testes ScanAPI</b> passando — incluindo token forjado devolve 401.</li>
+  </ul>
+ </section>
+
+ <!-- 8 VALOR -->
+ <section class="slide">
+  <h2>Por que importa</h2>
+  <div class="row">
+   <div class="col">
+    <p class="big">Para a companhia:</p>
+    <ul>
+     <li>Recupera receita de assentos que iam decolar vazios.</li>
+     <li>Desconto cirúrgico — só para quem precisa do empurrão.</li>
+     <li>Campanha pronta em segundos, no tom da marca.</li>
+    </ul>
+   </div>
+   <div class="col">
+    <div class="kpi"><b>Segundos</b><span>para produzir uma campanha (era: dias)</span></div>
+   </div>
+  </div>
+ </section>
+
+ <!-- 9 FECHAMENTO -->
+ <section class="slide">
+  <h2>AirRevenue</h2>
+  <p class="big">O assento vazio deixa de ser prejuízo e vira <b class="grn">a próxima venda</b>.</p>
+  <div class="kpis">
+   <div class="kpi"><b>TiDB</b><span>dados + vetorial</span></div>
+   <div class="kpi"><b>Bedrock</b><span>IA generativa</span></div>
+   <div class="kpi"><b>AWS</b><span>publicado na EC2</span></div>
+   <div class="kpi"><b>Kiro</b><span>spec-driven</span></div>
+  </div>
+  <p class="mut" style="margin-top:3vh">Obrigado. Bora encher esses voos.</p>
+ </section>
+
+ <div class="foot">
+  <div class="dots" id="dots"></div>
+  <div>use as setas para navegar</div>
+ </div>
+</div>
+
+<script>
+ const slides = [...document.querySelectorAll('.slide')];
+ const dots = document.getElementById('dots');
+ slides.forEach((_,i)=>{const d=document.createElement('div');d.className='dot'+(i===0?' on':'');dots.appendChild(d)});
+ let i = 0;
+ function go(n){ i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+  [...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i)); }
+ document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown')go(i+1);
+  if(e.key==='ArrowLeft'||e.key==='PageUp')go(i-1);
+  if(e.key==='Home')go(0); if(e.key==='End')go(slides.length-1);
+ });
+ document.getElementById('deck').addEventListener('click',()=>go(i+1));
+</script>
+</body>
+</html>

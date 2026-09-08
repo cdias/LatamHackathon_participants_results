@@ -1,0 +1,24 @@
+# Credenciais — nunca commitar
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+
+# Node
+node_modules/
+frontend/dist/
+frontend/.env
+
+# IDE
+.DS_Store
+*.swp
+*.idea/
+.vscode/
+hackathon_airportdb.sql
+hackathon_airportdb.sql.gz

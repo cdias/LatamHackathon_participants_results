@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GateMate — Deck</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blue:    #0EA5E9;
+    --dark:    #0F172A;
+    --darker:  #020817;
+    --card:    #1E293B;
+    --border:  #334155;
+    --text:    #F1F5F9;
+    --muted:   #94A3B8;
+    --green:   #22C55E;
+    --amber:   #F59E0B;
+    --purple:  #A855F7;
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--darker);
+    color: var(--text);
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  /* ── SLIDES ── */
+  .deck { width: 100vw; height: 100vh; position: relative; }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 80px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .4s ease;
+  }
+  .slide.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* ── NAVIGATION ── */
+  .nav {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 100;
+    background: rgba(15,23,42,.8);
+    backdrop-filter: blur(8px);
+    padding: 10px 24px;
+    border-radius: 40px;
+    border: 1px solid var(--border);
+  }
+  .nav button {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background .2s;
+  }
+  .nav button:hover { background: var(--blue); border-color: var(--blue); }
+  .nav button:disabled { opacity: .3; cursor: default; }
+  .nav button:disabled:hover { background: var(--card); border-color: var(--border); }
+  #counter { font-size: 13px; color: var(--muted); min-width: 60px; text-align: center; }
+
+  /* ── DOTS ── */
+  .dots {
+    position: fixed;
+    right: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+  }
+  .dot.active { background: var(--blue); transform: scale(1.4); }
+
+  /* ── TYPOGRAPHY ── */
+  h1 { font-size: clamp(36px, 5vw, 64px); font-weight: 800; line-height: 1.1; }
+  h2 { font-size: clamp(22px, 3vw, 36px); font-weight: 700; margin-bottom: 32px; color: var(--blue); }
+  h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+  p  { font-size: clamp(14px, 1.6vw, 18px); line-height: 1.7; color: var(--muted); }
+
+  .tag {
+    display: inline-block;
+    background: rgba(14,165,233,.15);
+    color: var(--blue);
+    border: 1px solid rgba(14,165,233,.3);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+
+  /* ── SLIDE 1 — CAPA ── */
+  #s1 { background: radial-gradient(ellipse at 30% 50%, rgba(14,165,233,.12) 0%, transparent 60%),
+                    radial-gradient(ellipse at 70% 80%, rgba(168,85,247,.08) 0%, transparent 50%),
+                    var(--darker); }
+  #s1 .plane { font-size: 72px; margin-bottom: 24px; }
+  #s1 h1 { text-align: center; }
+  #s1 h1 span { color: var(--blue); }
+  #s1 .sub { font-size: 22px; color: var(--muted); margin-top: 16px; text-align: center; }
+  #s1 .event { margin-top: 40px; font-size: 14px; color: var(--border); letter-spacing: .1em; text-transform: uppercase; }
+
+  /* ── SLIDE 2 — PROBLEMA ── */
+  #s2 { background: var(--dark); }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .prob-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .prob-card .emoji { font-size: 32px; margin-bottom: 12px; }
+  .prob-card h3 { color: var(--text); }
+  .prob-card p { font-size: 14px; }
+  .prob-quote {
+    margin-top: 32px;
+    text-align: center;
+    font-size: 18px;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .prob-quote strong { color: var(--text); }
+
+  /* ── SLIDE 3 — SOLUÇÃO ── */
+  #s3 { background: var(--dark); }
+  .solution-flow {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin: 32px 0;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .flow-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 28px;
+    text-align: center;
+    min-width: 160px;
+  }
+  .flow-box .icon { font-size: 28px; margin-bottom: 8px; }
+  .flow-box span { font-size: 14px; color: var(--muted); }
+  .flow-arrow { font-size: 24px; color: var(--blue); }
+  .flow-result {
+    background: linear-gradient(135deg, rgba(14,165,233,.2), rgba(168,85,247,.15));
+    border: 1px solid var(--blue);
+    border-radius: 16px;
+    padding: 20px 32px;
+    text-align: center;
+  }
+  .flow-result .steps { display: flex; gap: 12px; margin-top: 12px; }
+  .step-badge {
+    background: var(--blue);
+    color: white;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .demo-link {
+    margin-top: 24px;
+    color: var(--blue);
+    font-size: 15px;
+    text-decoration: none;
+    border: 1px solid rgba(14,165,233,.4);
+    padding: 8px 20px;
+    border-radius: 20px;
+    display: inline-block;
+    transition: background .2s;
+  }
+  .demo-link:hover { background: rgba(14,165,233,.1); }
+
+  /* ── SLIDE 4 — COMO FUNCIONA ── */
+  #s4 { background: var(--dark); }
+  .flow-steps {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .flow-step {
+    flex: 1;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+  }
+  .flow-step::before {
+    content: attr(data-n);
+    position: absolute;
+    top: -16px; left: 20px;
+    background: var(--blue);
+    color: white;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px;
+  }
+  .flow-step h3 { color: var(--blue); font-size: 14px; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; margin-top: 8px; }
+  .flow-step ul { list-style: none; }
+  .flow-step ul li { font-size: 13px; color: var(--muted); padding: 4px 0; }
+  .flow-step ul li::before { content: "→ "; color: var(--blue); }
+  .flow-step .tech-badge {
+    display: inline-block;
+    background: rgba(14,165,233,.1);
+    color: var(--blue);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-family: monospace;
+    margin-top: 12px;
+  }
+
+  /* ── SLIDE 5 — FEATURES ── */
+  #s5 { background: var(--dark); }
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+    max-width: 860px;
+  }
+  .feat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 24px;
+  }
+  .feat-card h3 { font-size: 15px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+  .feat-card ul { margin-top: 10px; list-style: none; }
+  .feat-card ul li { font-size: 13px; color: var(--muted); padding: 3px 0; }
+  .feat-card ul li::before { content: "· "; color: var(--blue); }
+  .badge-green  { color: var(--green); }
+  .badge-amber  { color: var(--amber); }
+  .badge-purple { color: var(--purple); }
+  .badge-blue   { color: var(--blue); }
+
+  /* ── SLIDE 6 — STACK ── */
+  #s6 { background: var(--dark); }
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+    max-width: 860px;
+  }
+  .stack-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+  }
+  .stack-card .icon { font-size: 36px; margin-bottom: 12px; }
+  .stack-card h3 { font-size: 16px; margin-bottom: 8px; }
+  .stack-card p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .stack-card .region {
+    margin-top: 10px;
+    font-size: 11px;
+    font-family: monospace;
+    color: var(--blue);
+    background: rgba(14,165,233,.1);
+    padding: 3px 8px;
+    border-radius: 6px;
+    display: inline-block;
+  }
+
+  /* ── SLIDE 7 — SCORE ── */
+  #s7 { background: var(--dark); }
+  .score-table {
+    width: 100%;
+    max-width: 700px;
+    border-collapse: collapse;
+  }
+  .score-table th {
+    text-align: left;
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .score-table td {
+    padding: 10px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(51,65,85,.5);
+  }
+  .score-table tr:last-child td {
+    border-bottom: none;
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--green);
+    padding-top: 16px;
+  }
+  .pts {
+    display: inline-block;
+    background: rgba(34,197,94,.12);
+    color: var(--green);
+    border-radius: 6px;
+    padding: 2px 10px;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .pts-total {
+    display: inline-block;
+    background: rgba(34,197,94,.2);
+    color: var(--green);
+    border-radius: 8px;
+    padding: 4px 14px;
+    font-weight: 800;
+    font-size: 18px;
+  }
+
+  /* ── SLIDE 8 — FECHAMENTO ── */
+  #s8 {
+    background: radial-gradient(ellipse at 50% 40%, rgba(14,165,233,.15) 0%, transparent 65%),
+                var(--darker);
+    text-align: center;
+  }
+  #s8 .quote {
+    font-size: clamp(20px, 3vw, 32px);
+    font-weight: 700;
+    line-height: 1.5;
+    max-width: 700px;
+    margin: 0 auto 40px;
+  }
+  #s8 .quote em { color: var(--blue); font-style: normal; }
+  #s8 .app-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--blue);
+    color: white;
+    padding: 14px 32px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    transition: opacity .2s;
+  }
+  #s8 .app-link:hover { opacity: .85; }
+  #s8 .hackathon { margin-top: 40px; font-size: 13px; color: var(--border); letter-spacing: .1em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- ── SLIDE 1 ── -->
+  <div class="slide active" id="s1">
+    <div class="plane">✈️</div>
+    <h1><span>Gate</span>Mate</h1>
+    <p class="sub">Copiloto pessoal do passageiro conectado</p>
+    <p class="event">Hackathon TiDB × AWS &nbsp;·&nbsp; São Paulo &nbsp;·&nbsp; 02.09.2026</p>
+  </div>
+
+  <!-- ── SLIDE 2 ── -->
+  <div class="slide" id="s2">
+    <div class="tag">O Problema</div>
+    <h2>Todo passageiro já viveu isso</h2>
+    <div class="problem-grid">
+      <div class="prob-card">
+        <div class="emoji">⏳</div>
+        <h3>Voo atrasado 2h</h3>
+        <p>O app mostra "Delayed". Só isso. O que fazer com 2 horas livres?</p>
+      </div>
+      <div class="prob-card">
+        <div class="emoji">🔌</div>
+        <h3>Celular morrendo</h3>
+        <p>Nenhum serviço próximo é sugerido. Você caminha até achar uma tomada.</p>
+      </div>
+      <div class="prob-card">
+        <div class="emoji">🔗</div>
+        <h3>Conexão de 45min</h3>
+        <p>Sem orientação de rota. Sem estimativa de tempo. Sem plano.</p>
+      </div>
+      <div class="prob-card">
+        <div class="emoji">☕</div>
+        <h3>Com fome, sem mapa</h3>
+        <p>O aeroporto tem tudo. Ninguém te conta onde está.</p>
+      </div>
+    </div>
+    <p class="prob-quote"><strong>O aeroporto tem tudo que você precisa.</strong><br>Ninguém te conta onde está.</p>
+  </div>
+
+  <!-- ── SLIDE 3 ── -->
+  <div class="slide" id="s3">
+    <div class="tag">A Solução</div>
+    <h2>GateMate sabe o que você precisa</h2>
+    <div class="solution-flow">
+      <div class="flow-box">
+        <div class="icon">🎫</div>
+        <h3>Código de reserva</h3>
+        <span>identifica você e seu voo</span>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">
+        <div class="icon">💬</div>
+        <h3>Linguagem natural</h3>
+        <span>"preciso de café e tomada"</span>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-result">
+        <h3>Plano em 3 passos</h3>
+        <div class="steps">
+          <div class="step-badge">1</div>
+          <div class="step-badge">2</div>
+          <div class="step-badge">3</div>
+        </div>
+        <p style="font-size:12px;margin-top:8px;color:var(--muted)">empático · pt-BR · acionável</p>
+      </div>
+    </div>
+    <a class="demo-link" href="https://airport-concierge-ai.lovable.app/" target="_blank">
+      ✈️ &nbsp; airport-concierge-ai.lovable.app
+    </a>
+  </div>
+
+  <!-- ── SLIDE 4 ── -->
+  <div class="slide" id="s4">
+    <div class="tag">Como Funciona</div>
+    <h2>Do código de reserva ao plano de ação</h2>
+    <div class="flow-steps">
+      <div class="flow-step" data-n="1">
+        <h3>Lookup de Reserva</h3>
+        <ul>
+          <li>Código de reserva → TiDB</li>
+          <li>JOIN: booking + passenger + flight</li>
+          <li>Retorna nome, voo, status, horário</li>
+        </ul>
+        <span class="tech-badge">TiDB Cloud · sa-east-1</span>
+      </div>
+      <div class="flow-step" data-n="2">
+        <h3>Busca Vetorial</h3>
+        <ul>
+          <li>Necessidade em linguagem natural</li>
+          <li>EMBED_TEXT gera vetor 1024-dim</li>
+          <li>VEC_COSINE_DISTANCE → top 5 serviços</li>
+        </ul>
+        <span class="tech-badge">VECTOR(1024) · EMBED_TEXT</span>
+      </div>
+      <div class="flow-step" data-n="3">
+        <h3>Geração do Plano</h3>
+        <ul>
+          <li>Contexto completo → Bedrock</li>
+          <li>Claude 3 Haiku gera 3 passos</li>
+          <li>Empático, pt-BR, acionável</li>
+        </ul>
+        <span class="tech-badge">Bedrock · ap-southeast-1</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 5 ── -->
+  <div class="slide" id="s5">
+    <div class="tag">Features</div>
+    <h2>O que o GateMate entrega</h2>
+    <div class="features-grid">
+      <div class="feat-card">
+        <h3><span class="badge-green">✅</span> Busca por Reserva</h3>
+        <ul>
+          <li>Integração com airportdb</li>
+          <li>booking + passenger + flight</li>
+          <li>Sem login, sem fricção</li>
+        </ul>
+      </div>
+      <div class="feat-card">
+        <h3><span class="badge-blue">🔍</span> Busca Vetorial Semântica</h3>
+        <ul>
+          <li>VECTOR(1024) no TiDB</li>
+          <li>EMBED_TEXT nativo — zero latência extra</li>
+          <li>Linguagem natural → serviços relevantes</li>
+        </ul>
+      </div>
+      <div class="feat-card">
+        <h3><span class="badge-purple">🤖</span> Plano de Ação com IA</h3>
+        <ul>
+          <li>Claude 3 Haiku · ap-southeast-1</li>
+          <li>3 passos numerados · pt-BR</li>
+          <li>Tom empático · instrução direta</li>
+        </ul>
+      </div>
+      <div class="feat-card">
+        <h3><span class="badge-amber">💬</span> Interface Conversacional</h3>
+        <ul>
+          <li>React (Vite) + FastAPI</li>
+          <li>Fluxo guiado em 3 etapas</li>
+          <li>Deploy EC2 · sa-east-1</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 6 ── -->
+  <div class="slide" id="s6">
+    <div class="tag">Tech Stack</div>
+    <h2>Construído com a plataforma completa</h2>
+    <div class="stack-grid">
+      <div class="stack-card">
+        <div class="icon">🗄️</div>
+        <h3>TiDB Cloud Starter</h3>
+        <p>Banco relacional + busca vetorial nativa com VECTOR(1024) e EMBED_TEXT</p>
+        <span class="region">sa-east-1 · São Paulo</span>
+      </div>
+      <div class="stack-card">
+        <div class="icon">🤖</div>
+        <h3>Amazon Bedrock</h3>
+        <p>Claude 3 Haiku para geração do plano empático em português</p>
+        <span class="region">ap-southeast-1 · Singapura</span>
+      </div>
+      <div class="stack-card">
+        <div class="icon">☁️</div>
+        <h3>EC2 AWS</h3>
+        <p>FastAPI na porta 8000 + React Vite na 3000, bind 0.0.0.0</p>
+        <span class="region">sa-east-1 · São Paulo</span>
+      </div>
+      <div class="stack-card">
+        <div class="icon">⚡</div>
+        <h3>FastAPI + Python</h3>
+        <p>pymysql com SSL, python-dotenv, retry automático no Bedrock</p>
+        <span class="region">backend · porta 8000</span>
+      </div>
+      <div class="stack-card">
+        <div class="icon">⚛️</div>
+        <h3>React + Vite</h3>
+        <p>Fluxo de 3 etapas guiadas, sem login, acessível no navegador</p>
+        <span class="region">frontend · porta 3000</span>
+      </div>
+      <div class="stack-card">
+        <div class="icon">🧠</div>
+        <h3>Kiro</h3>
+        <p>Spec-driven development, requirements + design + tasks no .kiro/ commitado</p>
+        <span class="region">kiro.dev</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 7 ── -->
+  <div class="slide" id="s7">
+    <div class="tag">Pontuação</div>
+    <h2>Cobertura completa dos critérios</h2>
+    <table class="score-table">
+      <thead>
+        <tr>
+          <th>Critério</th>
+          <th>Pontos</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>✅ Funciona na demo</td><td><span class="pts">20</span></td><td>App rodando ao vivo</td></tr>
+        <tr><td>✅ Inovação e criatividade</td><td><span class="pts">15</span></td><td>Concierge semântico com vetor + LLM</td></tr>
+        <tr><td>✅ Valor de negócio</td><td><span class="pts">15</span></td><td>Passageiro real, problema real</td></tr>
+        <tr><td>✅ Demo e pitch</td><td><span class="pts">10</span></td><td>2 min, mostra funcionando</td></tr>
+        <tr><td>✅ TiDB Cloud Starter AWS</td><td><span class="pts">10</span></td><td>sa-east-1 · São Paulo</td></tr>
+        <tr><td>✅ Busca vetorial no TiDB</td><td><span class="pts">8</span></td><td>EMBED_TEXT + VEC_COSINE_DISTANCE</td></tr>
+        <tr><td>✅ Amazon Bedrock</td><td><span class="pts">8</span></td><td>Claude Haiku · ap-southeast-1</td></tr>
+        <tr><td>✅ Publicado na EC2</td><td><span class="pts">8</span></td><td>sa-east-1 · porta 8000</td></tr>
+        <tr><td>✅ Construído com Kiro</td><td><span class="pts">6</span></td><td>.kiro/ commitado no repo</td></tr>
+        <tr><td><strong>TOTAL</strong></td><td><span class="pts-total">100 🎯</span></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── SLIDE 8 ── -->
+  <div class="slide" id="s8">
+    <div class="plane" style="font-size:56px;margin-bottom:32px">✈️</div>
+    <p class="quote">
+      "A companhia aérea te dá<br>o número do portão.<br>
+      <em>O GateMate te dá o próximo passo.</em>"
+    </p>
+    <a class="app-link" href="https://airport-concierge-ai.lovable.app/" target="_blank">
+      🚀 &nbsp; Abrir GateMate
+    </a>
+    <p class="hackathon">Hackathon TiDB × AWS &nbsp;·&nbsp; São Paulo &nbsp;·&nbsp; 02.09.2026</p>
+  </div>
+
+</div><!-- /.deck -->
+
+<!-- ── DOTS ── -->
+<div class="dots" id="dots"></div>
+
+<!-- ── NAV ── -->
+<div class="nav">
+  <button id="prev" disabled>← Anterior</button>
+  <span id="counter">1 / 8</span>
+  <button id="next">Próximo →</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dotsEl = document.getElementById('dots');
+  const prev   = document.getElementById('prev');
+  const next   = document.getElementById('next');
+  const counter = document.getElementById('counter');
+  let cur = 0;
+
+  // build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => go(i));
+    dotsEl.appendChild(d);
+  });
+
+  function go(n) {
+    slides[cur].classList.remove('active');
+    dotsEl.children[cur].classList.remove('active');
+    cur = n;
+    slides[cur].classList.add('active');
+    dotsEl.children[cur].classList.add('active');
+    counter.textContent = (cur + 1) + ' / ' + slides.length;
+    prev.disabled = cur === 0;
+    next.disabled = cur === slides.length - 1;
+  }
+
+  prev.addEventListener('click', () => go(cur - 1));
+  next.addEventListener('click', () => go(cur + 1));
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { if (cur < slides.length - 1) go(cur + 1); }
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { if (cur > 0) go(cur - 1); }
+  });
+</script>
+</body>
+</html>
